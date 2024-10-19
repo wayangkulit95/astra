@@ -1,6 +1,6 @@
 
 
-install command
+install command for debain 11
 
 curl -O https://raw.githubusercontent.com/wayangkulit95/astra/main/install_astra.sh && chmod +x install_astra.sh && sudo ./install_astra.sh
 
