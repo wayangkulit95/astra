@@ -1,0 +1,41 @@
+# Output message to indicate where to access Astra
+ip_addr=$(hostname -I | awk '{print $1}')
+echo "Cesbo Astra installation complete!"
+echo "Access Astra at: http://$ip_addr:8000"
+echo "Default login: admin/admin"
+
+# Recommendation to change default password
+echo "IMPORTANT: Log in to the web interface and change the default admin password."
+```
+
+### How to Use the Script
+
+1. **Create the Script:**
+   Save the script to a file called `install_astra.sh`.
+
+2. **Make the Script Executable:**
+   Open your terminal, navigate to the directory where you saved the script, and run the following command:
+   ```bash
+   chmod +x install_astra.sh
+   ```
+
+3. **Run the Script:**
+   Execute the script with root privileges:
+   ```bash
+   sudo ./install_astra.sh
+   ```
+
+4. **Access Cesbo Astra:**
+   After the script finishes, it will display the IP address and port for accessing Astra:
+   ```
+   http://<your_server_ip>:8000
+   ```
+   You can log in with the default credentials (`admin/admin`).
+
+5. **Change Admin Password:**
+   After logging in for the first time, immediately change the default password for security reasons.
+
+### Firewall Configuration (Optional):
+If UFW is installed and active, the script will automatically open port `8000` for Astra. If you're using a different firewall, you'll need to manually open the required ports.
+
+Let me know if you need any further modifications or help!
