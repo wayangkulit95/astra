@@ -15,7 +15,7 @@ else
 fi
 
 # Update the system
-echo "Updating system packages for Ubuntu 20.04..."
+echo "Updating system packages for Debian 11..."
 sudo apt update && sudo apt upgrade -y
 
 # Install dependencies
@@ -23,8 +23,8 @@ echo "Installing necessary dependencies..."
 sudo apt install wget curl lsb-release gnupg2 -y
 
 # Add Cesbo Astra repository
-echo "Adding Cesbo Astra repository for Ubuntu 20.04..."
-echo "deb http://cesbo.com/deb/release $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cesbo.list
+echo "Adding Cesbo Astra repository for Debian 11..."
+echo "deb http://cesbo.com/deb/release bullseye main" | sudo tee /etc/apt/sources.list.d/cesbo.list
 
 # Add the Cesbo public key
 echo "Downloading and adding Cesbo GPG key..."
@@ -36,15 +36,24 @@ sudo apt update
 
 # Install Cesbo Astra
 echo "Installing Cesbo Astra..."
-sudo apt install astra -y
+if ! sudo apt install astra -y; then
+  echo "Error: Unable to locate package astra. Please check the repository."
+  exit 1
+fi
 
 # Start the Astra service
 echo "Starting Cesbo Astra service..."
-sudo systemctl start astra
+if ! sudo systemctl start astra; then
+  echo "Failed to start astra.service. Unit not found."
+  exit 1
+fi
 
 # Enable Astra service to start on boot
 echo "Enabling Cesbo Astra to start at boot..."
-sudo systemctl enable astra
+if ! sudo systemctl enable astra; then
+  echo "Failed to enable unit: Unit astra.service does not exist."
+  exit 1
+fi
 
 # Check if UFW (Uncomplicated Firewall) is installed, and open the necessary port
 if ufw status | grep -q "Status: active"; then
