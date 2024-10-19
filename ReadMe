@@ -1,3 +1,13 @@
+
+
+install command
+
+curl -O https://raw.githubusercontent.com/your-username/your-repo/main/install_astra.sh && chmod +x install_astra.sh && sudo ./install_astra.sh
+
+
+
+
+
 # Output message to indicate where to access Astra
 ip_addr=$(hostname -I | awk '{print $1}')
 echo "Cesbo Astra installation complete!"
